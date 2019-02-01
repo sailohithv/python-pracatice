@@ -1,0 +1,316 @@
+1. Swap case without using in built function
+
+s=raw_input()
+l=list(s)
+l1=[]
+
+f=0
+f1=0
+for i in l:
+  
+  if i.isalpha():
+    f=1
+    if i.isupper():
+      f1=1
+      l1.append(i.lower())
+      
+    else:
+      l1.append(i.upper())
+
+ss="".join(l1)
+print ss
+
+
+2. Remove white spaces in a given string.
+
+string1=raw_input("enter a string with spaces:")
+li=string1.split()
+new_string = "".join(li)
+print new_string
+
+
+3. Multiplication Table
+
+n=int(raw_input("Enter a number:"))
+for i in range(1,11):
+    
+    print n,"X",i,"=",n*i
+
+
+4. Sum of digits of a given number
+
+n=int(raw_input("Enter a number:"))
+sum=0
+while n!=0:
+    r=n%10
+    sum+=r
+    n/=10
+print sum
+
+
+5. Write a program to ask user string as an input and ask the user to remove white space, if yes proceed, 
+   if no ask user to join the string using the delimiter specified by the user
+   
+strin=raw_input("Enter a String:")
+inp=raw_input("Do you want to remove spaces-y,yes,yeah,yep,n,no,nope,nah:")
+if inp=="y" or inp=="yes" or inp=="yeah" or inp=="yep":
+    li=strin.split()
+    new_string = "".join(li)
+    print new_string
+elif inp=="n" or inp=="no" or inp=="nope" or inp=="nah":
+    inp1=raw_input("Do you want to join-y,yes,yeah,yep,n,no,nope,nah:")
+    if inp1=="y" or inp1=="yes" or inp1=="yeah" or inp1=="yep":
+        deli=raw_input("enter a delimiter you want to use:")
+        li=strin.split()
+        new_string = deli.join(li)
+        print new_string
+
+
+6. Program to determine angle between the hands of a 12 hours clock(input is given as hh:mm)
+
+time=raw_input("enter time:")
+li=time.split(':')
+angle=min((30*float(li[0])-5.5*float(li[1]),360-(30*float(li[0])-5.5*float(li[1]))))
+print angle
+
+
+7. Program to prompt to the user for input and print the same till a keyboard interrupt(ctrl+c) is caused.
+
+while True:
+  try:
+    s=raw_input("enter something:")
+    print s
+    ns=str(s)
+  except:
+    print "\nerror"
+    break
+
+
+8. Sorting a list without using in built function
+
+approach-1:
+
+a=[5,9,1,4,8,3,1]
+for i in range(len(a)-1):
+    for i in range(len(a)-1):
+        if a[i]<a[i+1]:
+            temp=a[i]
+            a[i]=a[i+1]
+            a[i+1]=temp
+print a
+
+
+approach-2
+
+a=[5,9,1,4,8,3,1]
+nl=[]
+while len(a)>0:
+  nl.append(max(a))
+  a.remove(max(a))
+print nl
+
+
+9. Write a program to take a string as an input and make two lists out of it odd indices and even indices of string. The difference of 
+   these list must be given as output.(result list can be in anyorder)
+   
+   eg:
+   s="helllo"
+   evenlist=['h','l','l']
+   oddlist=['e','l','o']
+   result=['h','e','l','o']
+   
+approach-1:
+ 
+ import copy
+
+s="helllllolpl"
+
+
+nd={}
+l1=[]
+l2=[]
+for i in range(len(s)):
+  if i%2==0:
+    l1.append(s[i])
+  else:
+    l2.append(s[i])
+print l1,l2
+
+nl=[]
+a=0
+l1_c=copy.deepcopy(l1)
+for i in l2:
+    
+    if i in l1 :
+        c1=l1.count(i)
+        c2=l2.count(i)
+        print c1,c2
+        fc=abs(c1-c2)
+        if i in l1_c:
+            for k in range(fc):
+                nl.append(i)
+        
+            
+            for l in range(c1):
+                l1_c.remove(i)
+    else:
+        nl.append(i)
+nl.extend(l1_c)
+print nl
+
+
+
+approach-2:
+
+from collections import Counter
+
+s="helllllolpl"
+s1=list(s)
+print s1
+c=Counter(s1)
+print c
+
+nd={}
+e=[]
+o=[]
+for i in range(len(s)):
+  if i%2==0:
+    e.append(s[i])
+  else:
+    o.append(s[i])
+print e,o
+
+de=dict(Counter(e))
+print de
+dekeys=de.keys()
+deval=de.values()
+
+do=dict(Counter(o))
+print do
+dokeys=do.keys()
+doval=do.values()
+
+set1=set(dekeys).union(dokeys)
+print set1
+nl=list(set1)
+print nl
+
+for i in nl:
+  if i in do.keys() and i in de.keys():
+    nd[i]=abs(de[i]-do[i])
+print nd
+
+li_dif = [i for i in e + o if i not in e or i not in o] 
+print li_dif
+
+for k,v in nd.iteritems():
+  if v>0:
+    for i in range(v):
+      li_dif.append(k)
+
+# li_dif.extend(nd.keys())
+print li_dif
+
+10. write a program to fetch names from a table in a database and generate a seperate file for each name.
+
+import mysql.connector as m
+db = m.connect(host="localhost",user="root",password="root",db="mydb",port="3306" )
+cursor = db.cursor()
+cursor.execute("select * from names;")
+res=cursor.fetchall()
+print res
+db.close()
+
+
+import unicodedata
+li=[]
+for i in res:
+    
+    j=i[0].encode()
+    li.append(j)
+print li
+
+
+import env
+env.workspace = 'C:\\Python27\\programs\\files'
+
+import os
+os.chdir('C:\\Python27\\programs\\files')
+for i in li:
+    filename = i + '.txt'
+    f = open(filename, 'w')      
+    f.close()
+
+
+11. Write a program to read a file with names and display their titles and degrees seperately
+      
+     eg:
+     Mskavya-Miss Kavya
+     KavyaMS-Kavya (Master of Science)
+     
+ Approach-1:(Works for both prefix and postfix)
+ 
+f=open("a.txt","r")
+f.seek(0,0)
+res=f.read()
+names=res.split(',')
+
+
+li=['Md','Ms','Mr','MD','MS','MBBS','MP']
+
+d={'MD':' (Medicinae Doctor)','MS':' (Master of Science)','MBBS':' (Bachelor of Medicine & Bachelor of Surgeon)','MP':' (Member of Parliament)','Md':'Mohammed ','Ms':'Miss ','Mr':'Mister '}
+
+
+li1=[]
+for n in names:
+  for x in li:
+    a=n.find(x)
+    
+    if a>=0:
+      n=n.replace(x,d[x])
+      if n.find(x)>0:
+        n=n.replace(x,d[x])
+  li1.append(n)
+        
+        
+for n in li1:
+  print n
+
+
+Approach-2:(works either for prefix or postfix)
+
+
+li=['Md','Ms','Mr','MD','MS','MBBS','MP']
+
+d={'MD':' (Medicinae Doctor)','MS':' (Master of Science)','MBBS':' (Bachelor of Medicine & Bachelor of Surgeon)','MP':' (Member of Parliament)','Md':'Mohammed ','Ms':'Miss ','Mr':'Mister '}
+
+f=open("a.txt","r")
+f.seek(0,0)
+res=f.read()
+names=res.split(',')
+print names
+
+
+c1=0
+c2=0
+for s in names:
+    for i in li:
+      l=len(i)
+      nl=len(s)-l
+      s1=s[:l]
+      s2=s[nl:]
+
+      if i==s1:
+          c1=1
+          print d[i],s[l:]
+          break
+
+      if i==s2:
+          c2=1
+          print s[:-l],d[i]
+          break
+
+
+
+
+
