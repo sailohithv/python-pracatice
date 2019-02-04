@@ -120,7 +120,7 @@ print nl
    result=['h','e','l','o']
    
 approach-1:
- 
+----------- 
  import copy
 
 s="helllllolpl"
@@ -131,43 +131,43 @@ l1=[]
 l2=[]
 for i in range(len(s)):
   if i%2==0:
-    l1.append(s[i])
+    l1.append(s[i])        #even indices list
   else:
-    l2.append(s[i])
+    l2.append(s[i])        #odd indices list
 print l1,l2
 
 nl=[]
 a=0
-l1_c=copy.deepcopy(l1)
-for i in l2:
+l1_c=copy.deepcopy(l1)  #making a copy of l1
+for i in l2:            #for every character in l2
     
-    if i in l1 :
-        c1=l1.count(i)
-        c2=l2.count(i)
-        print c1,c2
+    if i in l1 :        # it will check if it is there in l1
+        c1=l1.count(i)    #count of that character in l1
+        c2=l2.count(i)    #count of that character in l2
+        print c1,c2   
         fc=abs(c1-c2)
-        if i in l1_c:
-            for k in range(fc):
-                nl.append(i)
+        if i in l1_c:                   #if the character is present in l1_c
+            for k in range(fc):         
+                nl.append(i)              #it append the characater as many times as the value of fc into the newlist nl
         
             
-            for l in range(c1):
-                l1_c.remove(i)
-    else:
+            for l in range(c1):           
+                l1_c.remove(i)       #once the character is appended to the new list the occurances of that character in l1_c are removed
+    else:           #if i is not in l1 it will append it to a new list
         nl.append(i)
-nl.extend(l1_c)
+nl.extend(l1_c)     #this line adds the elements in l1_c but not in l2 to the new list
 print nl
 
 
 
 approach-2:
-
+--------------
 from collections import Counter
 
 s="helllllolpl"
 s1=list(s)
 print s1
-c=Counter(s1)
+c=Counter(s1)     
 print c
 
 nd={}
@@ -175,40 +175,40 @@ e=[]
 o=[]
 for i in range(len(s)):
   if i%2==0:
-    e.append(s[i])
+    e.append(s[i])                #even indices list
   else:
-    o.append(s[i])
+    o.append(s[i])                #odd indices list
 print e,o
 
-de=dict(Counter(e))
+de=dict(Counter(e))       #this gives the characaters and their respective counts in a even indices dictionary
 print de
-dekeys=de.keys()
-deval=de.values()
+dekeys=de.keys()           #lists all the keys of dictionary de
+deval=de.values()          #lists all the values of dictionary de
 
-do=dict(Counter(o))
+do=dict(Counter(o))       #this gives the characaters and their respective counts in a odd indices dictionary
 print do
-dokeys=do.keys()
-doval=do.values()
+dokeys=do.keys()          #lists all the keys of dictionary do
+doval=do.values()         #lists all the values of dictionary do
 
-set1=set(dekeys).union(dokeys)
+set1=set(dekeys).union(dokeys)        #this gives the unique characters presesnt in the string
 print set1
 nl=list(set1)
 print nl
 
 for i in nl:
-  if i in do.keys() and i in de.keys():
+  if i in do.keys() and i in de.keys():         #This block takes the count of every character present in both the lists
     nd[i]=abs(de[i]-do[i])
 print nd
 
-li_dif = [i for i in e + o if i not in e or i not in o] 
+li_dif = [i for i in e + o if i not in e or i not in o]     #this list will have all the values present only in one of the lists
 print li_dif
 
 for k,v in nd.iteritems():
-  if v>0:
+  if v>0:                                       #this block will append the key(character) as many times as the value.
     for i in range(v):
       li_dif.append(k)
 
-# li_dif.extend(nd.keys())
+
 print li_dif
 
 10. write a program to fetch names from a table in a database and generate a seperate file for each name.
@@ -248,8 +248,8 @@ for i in li:
      Mskavya-Miss Kavya
      KavyaMS-Kavya (Master of Science)
      
- Approach-1:(Works for both prefix and postfix)
- 
+Approach-1:(Works for both prefix and postfix)
+---------------------------------------------- 
 f=open("a.txt","r")
 f.seek(0,0)
 res=f.read()
@@ -278,7 +278,7 @@ for n in li1:
 
 
 Approach-2:(works either for prefix or postfix)
-
+-----------------------------------------------
 
 li=['Md','Ms','Mr','MD','MS','MBBS','MP']
 
