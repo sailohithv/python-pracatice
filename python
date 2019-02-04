@@ -225,14 +225,11 @@ db.close()
 import unicodedata
 li=[]
 for i in res:
-    
+                            #this block will remove unicode character if it exists
     j=i[0].encode()
     li.append(j)
 print li
 
-
-import env
-env.workspace = 'C:\\Python27\\programs\\files'
 
 import os
 os.chdir('C:\\Python27\\programs\\files')
@@ -256,20 +253,20 @@ res=f.read()
 names=res.split(',')
 
 
-li=['Md','Ms','Mr','MD','MS','MBBS','MP']
+li=['Md','Ms','Mr','MD','MS','MBBS','MP']                  #list of prefixes and postfixes
 
 d={'MD':' (Medicinae Doctor)','MS':' (Master of Science)','MBBS':' (Bachelor of Medicine & Bachelor of Surgeon)','MP':' (Member of Parliament)','Md':'Mohammed ','Ms':'Miss ','Mr':'Mister '}
 
 
 li1=[]
-for n in names:
+for n in names: 
   for x in li:
-    a=n.find(x)
+    a=n.find(x)           #for every name in list names this block finds the position of prefix or postfix present in it 
     
     if a>=0:
-      n=n.replace(x,d[x])
+      n=n.replace(x,d[x])   #replacing the substring with its dictionary value
       if n.find(x)>0:
-        n=n.replace(x,d[x])
+        n=n.replace(x,d[x]) #if there are more than one prefix or postfix this will replace them with all corresponding values
   li1.append(n)
         
         
